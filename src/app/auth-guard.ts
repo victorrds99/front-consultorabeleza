@@ -1,0 +1,31 @@
+import { inject } from '@angular/core';
+import { CanActivateFn, Router } from '@angular/router';
+import { AuthService } from './auth.service';
+
+export const authGuard: CanActivateFn = async (route, state) => {
+  const authService = inject(AuthService);
+  const router = inject(Router);
+
+  try {
+    await authService.salvarToken();
+    const isAuthenticated = await authService.isAuthenticatedAsync();
+
+    if (!isAuthenticated) {
+      router.navigate(['login']);
+      return false;
+    }
+
+    // Se já estiver autenticado e tentar acessar login, redireciona para dashboard
+    if (state.url === '/login') {
+      router.navigate(['dashboard']);
+      return false;
+    }
+
+    // Permite acesso à rota solicitada
+    return true;
+  } catch (error) {
+    console.error('Erro no AuthGuard:', error);
+    router.navigate(['login']);
+    return false;
+  }
+};

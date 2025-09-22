@@ -1,5 +1,5 @@
 {
-  "whyContinueWithGen1": "Prefer not to answer",
+  "whyContinueWithGen1": "I find the Gen 1 CLI easier to use",
   "projectName": "frontconsultorabelez",
   "version": "3.1",
   "frontend": "javascript",
@@ -7,7 +7,7 @@
     "framework": "angular",
     "config": {
       "SourceDir": "src",
-      "DistributionDir": "dist",
+      "DistributionDir": "dist/front-consultorabeleza",
       "BuildCommand": "npm.cmd run-script build",
       "StartCommand": "ng serve"
     }
