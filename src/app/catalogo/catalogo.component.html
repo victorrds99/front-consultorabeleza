@@ -1,0 +1,39 @@
+<div class="catalogo-container">
+  <header class="catalogo-header">
+    <h1>Catálogo de Produtos de Beleza</h1>
+    <p>Descubra os melhores produtos para sua beleza e bem-estar</p>
+  </header>
+
+  <div class="filtros-categoria">
+    <button
+      *ngFor="let categoria of categorias"
+      class="btn-categoria"
+      [class.ativo]="categoria === categoriaSelecionada"
+      (click)="filtrarPorCategoria(categoria)">
+      {{ categoria }}
+    </button>
+  </div>
+
+  <div class="produtos-grid">
+    <div
+      *ngFor="let produto of produtosFiltrados"
+      class="produto-card">
+      <div class="produto-imagem">
+        <img [src]="produto.imagem" [alt]="produto.nome">
+      </div>
+      <div class="produto-info">
+        <h3 class="produto-nome">{{ produto.nome }}</h3>
+        <p class="produto-descricao">{{ produto.descricao }}</p>
+        <span class="produto-categoria">{{ produto.categoria }}</span>
+        <div class="produto-preco">
+          {{ formatarPreco(produto.preco) }}
+        </div>
+        <button class="btn-comprar">Adicionar ao Carrinho</button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="produtosFiltrados.length === 0" class="nenhum-produto">
+    <p>Nenhum produto encontrado nesta categoria.</p>
+  </div>
+</div>

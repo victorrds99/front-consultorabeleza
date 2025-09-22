@@ -118,7 +118,7 @@ export class LoginComponent {
       await signIn({ username: this.username, password: this.password });
       await this.authService.salvarToken();
       console.log('Login realizado com sucesso, redirecionando...');
-      this.router.navigate(['dashboard']);
+      this.router.navigate(['catalogo']);
     } catch (err) {
       console.error('Erro no login:', err);
       alert('Erro no login. Verifique suas credenciais.');

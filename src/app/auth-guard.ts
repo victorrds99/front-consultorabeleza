@@ -15,9 +15,9 @@ export const authGuard: CanActivateFn = async (route, state) => {
       return false;
     }
 
-    // Se já estiver autenticado e tentar acessar login, redireciona para dashboard
+    // Se já estiver autenticado e tentar acessar login, redireciona para catalogo
     if (state.url === '/login') {
-      router.navigate(['dashboard']);
+      router.navigate(['catalogo']);
       return false;
     }
 

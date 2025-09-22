@@ -10,7 +10,7 @@ import { AuthService } from './auth.service';
   imports: [AmplifyAuthenticatorModule],
   template: `
     <div class="login-container">
-      <h2>Login</h2>
+      
       <amplify-authenticator>
         <ng-template amplifyAuthContainer>
           <div class="auth-container">
