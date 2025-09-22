@@ -1,0 +1,89 @@
+<div class="carrinho-container">
+  <header class="carrinho-header">
+    <h1>🛒 Meu Carrinho</h1>
+    <button
+      *ngIf="itensCarrinho.length > 0"
+      class="btn-limpar"
+      (click)="limparCarrinho()">
+      Esvaziar Carrinho
+    </button>
+  </header>
+
+  <div *ngIf="itensCarrinho.length === 0" class="carrinho-vazio">
+    <div class="carrinho-vazio-icon">🛒</div>
+    <h2>Seu carrinho está vazio</h2>
+    <p>Adicione alguns produtos para começar suas compras!</p>
+    <a routerLink="/catalogo" class="btn-continuar-comprando">
+      Continuar Comprando
+    </a>
+  </div>
+
+  <div *ngIf="itensCarrinho.length > 0" class="carrinho-com-itens">
+    <div class="itens-lista">
+      <div
+        *ngFor="let item of itensCarrinho"
+        class="item-carrinho">
+        <div class="item-imagem">
+          <img [src]="item.produto.imagem" [alt]="item.produto.nome">
+        </div>
+
+        <div class="item-info">
+          <h3 class="item-nome">{{ item.produto.nome }}</h3>
+          <p class="item-descricao">{{ item.produto.descricao }}</p>
+          <span class="item-preco-unitario">
+            {{ formatarPreco(item.produto.preco) }} cada
+          </span>
+        </div>
+
+        <div class="item-controles">
+          <div class="controles-quantidade">
+            <button
+              class="btn-controle"
+              (click)="diminuirQuantidade(item.produto.id)"
+              [disabled]="item.quantidade <= 1">
+              -
+            </button>
+            <span class="quantidade">{{ item.quantidade }}</span>
+            <button
+              class="btn-controle"
+              (click)="aumentarQuantidade(item.produto.id)">
+              +
+            </button>
+          </div>
+
+          <div class="item-subtotal">
+            <strong>{{ formatarPreco(getSubtotal(item)) }}</strong>
+          </div>
+
+          <button
+            class="btn-remover"
+            (click)="removerItem(item.produto.id)">
+            🗑️
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="carrinho-resumo">
+      <div class="resumo-linha">
+        <span>Total de itens:</span>
+        <span>{{ totalItens }}</span>
+      </div>
+      <div class="resumo-linha resumo-total">
+        <span>Total:</span>
+        <span class="total-valor">{{ formatarPreco(totalValor) }}</span>
+      </div>
+
+      <div class="botoes-acao">
+        <a routerLink="/catalogo" class="btn-continuar-comprando">
+          Continuar Comprando
+        </a>
+        <button
+          class="btn-finalizar"
+          (click)="finalizarCompra()">
+          Finalizar Compra
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

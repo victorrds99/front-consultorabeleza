@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CarrinhoService } from '../services/carrinho.service';
 
-interface Produto {
+export interface Produto {
   id: number;
   nome: string;
   descricao: string;
@@ -18,6 +19,8 @@ interface Produto {
   styleUrl: './catalogo.component.scss'
 })
 export class CatalogoComponent {
+  constructor(private carrinhoService: CarrinhoService) {}
+
   produtos: Produto[] = [
     {
       id: 1,
@@ -88,5 +91,11 @@ export class CatalogoComponent {
       style: 'currency',
       currency: 'BRL'
     });
+  }
+
+  adicionarAoCarrinho(produto: Produto): void {
+    this.carrinhoService.adicionarProduto(produto);
+    // Feedback visual opcional
+    alert(`${produto.nome} adicionado ao carrinho!`);
   }
 }

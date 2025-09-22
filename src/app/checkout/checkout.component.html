@@ -1,0 +1,232 @@
+<div class="checkout-container">
+  <div class="checkout-header">
+    <h1>🛍️ Finalizar Compra</h1>
+    <p>Complete suas informações para finalizar o pedido</p>
+  </div>
+
+  <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()" class="checkout-form">
+    <div class="form-sections">
+      <!-- Seção de Dados do Cliente -->
+      <div class="form-section">
+        <h2>👤 Dados do Cliente</h2>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="nome">Nome Completo *</label>
+            <input
+              type="text"
+              id="nome"
+              formControlName="nome"
+              [class.invalid]="isFieldInvalid('nome')"
+              placeholder="Digite seu nome completo">
+            <div class="error-message" *ngIf="isFieldInvalid('nome')">
+              {{ getFieldError('nome') }}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input
+              type="email"
+              id="email"
+              formControlName="email"
+              [class.invalid]="isFieldInvalid('email')"
+              placeholder="seu@email.com">
+            <div class="error-message" *ngIf="isFieldInvalid('email')">
+              {{ getFieldError('email') }}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="telefone">Telefone *</label>
+            <input
+              type="tel"
+              id="telefone"
+              formControlName="telefone"
+              [class.invalid]="isFieldInvalid('telefone')"
+              placeholder="(11) 99999-9999">
+            <div class="error-message" *ngIf="isFieldInvalid('telefone')">
+              {{ getFieldError('telefone') }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Seção de Endereço -->
+      <div class="form-section">
+        <h2>📍 Endereço de Entrega</h2>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="cep">CEP *</label>
+            <input
+              type="text"
+              id="cep"
+              formControlName="cep"
+              [class.invalid]="isFieldInvalid('cep')"
+              placeholder="00000-000">
+            <div class="error-message" *ngIf="isFieldInvalid('cep')">
+              {{ getFieldError('cep') }}
+            </div>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="rua">Rua *</label>
+            <input
+              type="text"
+              id="rua"
+              formControlName="rua"
+              [class.invalid]="isFieldInvalid('rua')"
+              placeholder="Nome da rua">
+            <div class="error-message" *ngIf="isFieldInvalid('rua')">
+              {{ getFieldError('rua') }}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="numero">Número *</label>
+            <input
+              type="text"
+              id="numero"
+              formControlName="numero"
+              [class.invalid]="isFieldInvalid('numero')"
+              placeholder="123">
+            <div class="error-message" *ngIf="isFieldInvalid('numero')">
+              {{ getFieldError('numero') }}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="complemento">Complemento</label>
+            <input
+              type="text"
+              id="complemento"
+              formControlName="complemento"
+              placeholder="Apto 101, Bloco B">
+          </div>
+
+          <div class="form-group">
+            <label for="bairro">Bairro *</label>
+            <input
+              type="text"
+              id="bairro"
+              formControlName="bairro"
+              [class.invalid]="isFieldInvalid('bairro')"
+              placeholder="Nome do bairro">
+            <div class="error-message" *ngIf="isFieldInvalid('bairro')">
+              {{ getFieldError('bairro') }}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="cidade">Cidade *</label>
+            <input
+              type="text"
+              id="cidade"
+              formControlName="cidade"
+              [class.invalid]="isFieldInvalid('cidade')"
+              placeholder="Nome da cidade">
+            <div class="error-message" *ngIf="isFieldInvalid('cidade')">
+              {{ getFieldError('cidade') }}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="estado">Estado *</label>
+            <select
+              id="estado"
+              formControlName="estado"
+              [class.invalid]="isFieldInvalid('estado')">
+              <option value="">Selecione o estado</option>
+              <option *ngFor="let estado of estados" [value]="estado">
+                {{ estado }}
+              </option>
+            </select>
+            <div class="error-message" *ngIf="isFieldInvalid('estado')">
+              {{ getFieldError('estado') }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Seção de Pagamento -->
+      <div class="form-section">
+        <h2>💳 Forma de Pagamento</h2>
+        <div class="form-group">
+          <label for="metodoPagamento">Método de Pagamento *</label>
+          <select
+            id="metodoPagamento"
+            formControlName="metodoPagamento"
+            [class.invalid]="isFieldInvalid('metodoPagamento')">
+            <option *ngFor="let metodo of metodosPagamento" [value]="metodo.value">
+              {{ metodo.label }}
+            </option>
+          </select>
+          <div class="error-message" *ngIf="isFieldInvalid('metodoPagamento')">
+            {{ getFieldError('metodoPagamento') }}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="observacoes">Observações</label>
+          <textarea
+            id="observacoes"
+            formControlName="observacoes"
+            rows="3"
+            placeholder="Alguma observação especial?"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resumo do Pedido -->
+    <div class="order-summary">
+      <h2>📋 Resumo do Pedido</h2>
+
+      <div class="summary-items">
+        <div *ngFor="let item of itensCarrinho" class="summary-item">
+          <div class="item-info">
+            <span class="item-name">{{ item.produto.nome }}</span>
+            <span class="item-quantity">Quantidade: {{ item.quantidade }}</span>
+          </div>
+          <span class="item-price">{{ formatarPreco(getSubtotal(item)) }}</span>
+        </div>
+      </div>
+
+      <div class="summary-totals">
+        <div class="summary-row">
+          <span>Subtotal:</span>
+          <span>{{ formatarPreco(subtotal) }}</span>
+        </div>
+
+        <!-- Informações do Frete -->
+        <div class="frete-info" *ngIf="checkoutForm.get('estado')?.value">
+          <div class="frete-detalhes">
+            <small class="frete-regiao">
+              📍 {{ pedidoService.getRegiaoPorEstado(checkoutForm.get('estado')?.value) }}
+            </small>
+            <small class="frete-valor">
+              Frete: {{ formatarPreco(frete) }}
+            </small>
+          </div>
+        </div>
+
+        <div class="summary-row">
+          <span>Frete:</span>
+          <span>{{ formatarPreco(frete) }}</span>
+        </div>
+        <div class="summary-row total">
+          <span>Total:</span>
+          <span>{{ formatarPreco(total) }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botões de Ação -->
+    <div class="form-actions">
+      <button type="button" class="btn-secondary" (click)="voltarAoCarrinho()">
+        ← Voltar ao Carrinho
+      </button>
+      <button type="submit" class="btn-primary" [disabled]="checkoutForm.invalid">
+        Finalizar Pedido
+      </button>
+    </div>
+  </form>
+</div>

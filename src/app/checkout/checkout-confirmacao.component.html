@@ -1,0 +1,123 @@
+<div class="confirmacao-container" *ngIf="pedido">
+  <div class="confirmacao-header">
+    <h1>✅ Pedido Confirmado!</h1>
+    <p class="pedido-numero">Pedido #{{ pedido.id }}</p>
+  </div>
+
+  <div class="confirmacao-content">
+    <!-- Status do Pedido -->
+    <div class="status-section">
+      <div class="status-badge" [style.background-color]="getStatusColor(pedido.status)">
+        {{ getStatusText(pedido.status) }}
+      </div>
+      <p class="status-info">
+        Seu pedido foi recebido e está sendo processado. Você receberá atualizações por email.
+      </p>
+    </div>
+
+    <!-- Informações do Cliente -->
+    <div class="info-section">
+      <h2>👤 Informações do Cliente</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <strong>Nome:</strong> {{ pedido.cliente.nome }}
+        </div>
+        <div class="info-item">
+          <strong>Email:</strong> {{ pedido.cliente.email }}
+        </div>
+        <div class="info-item">
+          <strong>Telefone:</strong> {{ pedido.cliente.telefone }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Endereço de Entrega -->
+    <div class="info-section">
+      <h2>📍 Endereço de Entrega</h2>
+      <div class="endereco-detalhes">
+        <p>{{ pedido.endereco.rua }}, {{ pedido.endereco.numero }}</p>
+        <p *ngIf="pedido.endereco.complemento">{{ pedido.endereco.complemento }}</p>
+        <p>{{ pedido.endereco.bairro }} - {{ pedido.endereco.cidade }}/{{ pedido.endereco.estado }}</p>
+        <p>{{ pedido.endereco.cep }}</p>
+      </div>
+    </div>
+
+    <!-- Itens do Pedido -->
+    <div class="info-section">
+      <h2>🛍️ Itens do Pedido</h2>
+      <div class="itens-lista">
+        <div *ngFor="let item of pedido.itens" class="item-card">
+          <div class="item-info">
+            <h4>{{ item.produto.nome }}</h4>
+            <p class="item-descricao">{{ item.produto.descricao }}</p>
+            <span class="item-quantidade">Quantidade: {{ item.quantidade }}</span>
+          </div>
+          <div class="item-preco">
+            {{ formatarPreco(getSubtotal(item)) }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resumo Financeiro -->
+    <div class="info-section">
+      <h2>💰 Resumo Financeiro</h2>
+      <div class="resumo-grid">
+        <div class="resumo-item">
+          <span>Subtotal:</span>
+          <span>{{ formatarPreco(pedido.subtotal) }}</span>
+        </div>
+        <div class="resumo-item">
+          <span>Frete:</span>
+          <span>{{ formatarPreco(pedido.frete) }}</span>
+        </div>
+        <div class="resumo-item total">
+          <span>Total:</span>
+          <span>{{ formatarPreco(pedido.total) }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Informações de Pagamento -->
+    <div class="info-section">
+      <h2>💳 Forma de Pagamento</h2>
+      <div class="pagamento-info">
+        <p><strong>Método:</strong>
+          {{ pedido.metodoPagamento === 'cartao' ? 'Cartão de Crédito/Débito' :
+             pedido.metodoPagamento === 'pix' ? 'PIX' : 'Boleto Bancário' }}
+        </p>
+        <p *ngIf="pedido.observacoes"><strong>Observações:</strong> {{ pedido.observacoes }}</p>
+      </div>
+    </div>
+
+    <!-- Data do Pedido -->
+    <div class="info-section">
+      <h2>📅 Informações do Pedido</h2>
+      <div class="pedido-info">
+        <p><strong>Data do Pedido:</strong> {{ pedido.dataCriacao | date:'dd/MM/yyyy HH:mm' }}</p>
+        <p><strong>ID do Pedido:</strong> {{ pedido.id }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ações -->
+  <div class="confirmacao-actions">
+    <button type="button" class="btn-secondary" (click)="imprimirPedido()">
+      🖨️ Imprimir Pedido
+    </button>
+    <button type="button" class="btn-primary" (click)="fazerNovoPedido()">
+      🛍️ Fazer Novo Pedido
+    </button>
+    <button type="button" class="btn-outline" (click)="voltarAoCatalogo()">
+      ← Voltar ao Catálogo
+    </button>
+  </div>
+</div>
+
+<!-- Loading State -->
+<div class="confirmacao-container" *ngIf="!pedido">
+  <div class="loading-state">
+    <h2>🔄 Carregando pedido...</h2>
+    <p>Redirecionando para o catálogo em alguns instantes...</p>
+  </div>
+</div>

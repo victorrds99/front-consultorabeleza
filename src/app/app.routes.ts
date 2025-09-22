@@ -9,6 +9,24 @@ export const routes: Routes = [
     canActivate: [authGuard]
   },
   {
+    path: 'carrinho',
+    loadComponent: () =>
+      import('./carrinho/carrinho.component').then(m => m.CarrinhoComponent),
+    canActivate: [authGuard]
+  },
+  {
+    path: 'checkout',
+    loadComponent: () =>
+      import('./checkout/checkout.component').then(m => m.CheckoutComponent),
+    canActivate: [authGuard]
+  },
+  {
+    path: 'checkout/confirmacao',
+    loadComponent: () =>
+      import('./checkout/checkout-confirmacao.component').then(m => m.CheckoutConfirmacaoComponent),
+    canActivate: [authGuard]
+  },
+  {
     path: 'login',
     loadComponent: () =>
       import('./login.component').then(m => m.LoginComponent)

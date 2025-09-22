@@ -28,7 +28,9 @@
         <div class="produto-preco">
           {{ formatarPreco(produto.preco) }}
         </div>
-        <button class="btn-comprar">Adicionar ao Carrinho</button>
+        <button class="btn-comprar" (click)="adicionarAoCarrinho(produto)">
+          Adicionar ao Carrinho
+        </button>
       </div>
     </div>
   </div>

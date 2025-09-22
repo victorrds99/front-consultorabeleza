@@ -1,1 +1,22 @@
-<router-outlet></router-outlet>
+<div class="app-container">
+  <nav class="navbar">
+    <div class="nav-brand">
+      <h2>🛍️ Consultora de Beleza</h2>
+    </div>
+    <div class="nav-links">
+      <a routerLink="/catalogo" routerLinkActive="active" class="nav-link">
+        Catálogo
+      </a>
+      <a routerLink="/carrinho" routerLinkActive="active" class="nav-link">
+        🛒 Carrinho
+        <span *ngIf="totalItensCarrinho > 0" class="carrinho-contador">
+          {{ totalItensCarrinho }}
+        </span>
+      </a>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>
