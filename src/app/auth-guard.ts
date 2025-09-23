@@ -7,10 +7,10 @@ export const authGuard: CanActivateFn = async (route, state) => {
   const router = inject(Router);
 
   try {
-    // Verificar se há token no localStorage (login simulado)
-    const token = authService.getToken();
+    // Verificar se o usuário está autenticado
+    const isAuthenticated = await authService.isAuthenticatedAsync();
 
-    if (!token) {
+    if (!isAuthenticated) {
       router.navigate(['login']);
       return false;
     }

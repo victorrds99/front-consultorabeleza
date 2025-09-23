@@ -1,77 +1,27 @@
-# ✅ Checkout com Cálculo de Frete por Endereço - IMPLEMENTADO
+# TODO - Authentication and CEP Integration
 
-## 🎯 **Status: CONCLUÍDO**
+## Completed Steps
 
-### ✅ **Funcionalidades Implementadas:**
+- [x] Update `auth.service.ts` to include real `signIn`, `signUp`, `confirmSignUp`, and `resendSignUpCode` methods using AWS Amplify
+- [x] Create `register.component.ts` with registration form and email confirmation functionality
+- [x] Add registration route in `app.routes.ts`
+- [x] Update `login.component.ts` to use real authentication instead of simulation
+- [x] Update `auth-guard.ts` to use `isAuthenticatedAsync` for proper authentication checks
+- [x] Update login component template to include link to registration
+- [x] Fix AWS Amplify signUp error by handling email attribute correctly
+- [x] Update login and register components to use email as username
+- [x] Implement email confirmation flow in registration process
+- [x] Fix ngIf directive error by exporting Produto interface in catalogo.component.ts
+- [x] Ensure register link in login component is properly configured
+- [x] Create `cep.service.ts` to integrate with Viacep API for CEP address lookup
+- [x] Update `checkout.component.ts` to include CEP search functionality
+- [x] Update `checkout.component.html` to add CEP input with search button
+- [x] Update `checkout.component.scss` to style the CEP input group and button
+- [x] Add `provideHttpClient` to `app.config.ts` for HTTP requests
 
-#### **1. Cálculo de Frete Inteligente**
-- **Baseado na região/estado** brasileiro
-- **Tabela de fretes** por região (Norte, Nordeste, Centro-Oeste, Sudeste, Sul)
-- **Frete grátis** para compras acima de R$200
-- **Adicional** para compras menores baseado no subtotal
+## Next Steps
 
-#### **2. Página de Confirmação**
-- **Detalhes completos** do pedido criado
-- **Informações do cliente** e endereço
-- **Cálculo detalhado** do frete
-- **Opção para voltar** ao catálogo
-
-#### **3. Rota de Confirmação**
-- **Rota `/checkout/confirmacao`** adicionada
-- **Proteção por autenticação** configurada
-
-#### **4. Melhorias na Experiência**
-- **Login simplificado** sem dependência do Amplify UI
-- **Home page** como ponto de entrada
-- **Fluxo consistente** entre ambientes local e AWS
-
-### 🛠️ **Arquivos Modificados/Criados:**
-
-#### **Modificados:**
-- `src/app/services/pedido.service.ts` - Cálculo de frete por região
-- `src/app/app.routes.ts` - Nova rota de confirmação
-- `src/app/login.component.ts` - Login simplificado
-- `src/app/auth-guard.ts` - AuthGuard atualizado
-
-#### **Criados:**
-- `src/app/home.component.ts` - Página inicial
-- `src/app/checkout/checkout-confirmacao.component.ts` - Confirmação de pedido
-
-### 🎨 **Tabela de Fretes Implementada:**
-
-| Região | Estados | Frete Base |
-|--------|---------|-------------|
-| **Sudeste** | SP, RJ, MG, ES | R$12-20 |
-| **Sul** | RS, SC, PR | R$18-22 |
-| **Centro-Oeste** | MT, MS, GO, DF | R$20-25 |
-| **Nordeste** | BA, PE, CE, MA, PI, RN, PB, AL, SE | R$28-35 |
-| **Norte** | AM, PA, AC, RO, RR, AP, TO | R$35-45 |
-
-### 🚀 **Como Testar:**
-
-1. **Acesse a aplicação** → Vai para Home Page
-2. **Clique em "Catálogo"** → Redireciona para Login
-3. **Faça login** (qualquer usuário/senha) → Vai para Catálogo
-4. **Adicione produtos** ao carrinho
-5. **Vá para Checkout** → Preencha dados e endereço
-6. **Observe o frete** calculado baseado no estado
-7. **Finalize o pedido** → Veja a confirmação detalhada
-
-### ✅ **Problemas Resolvidos:**
-
-- **Diferença entre ambientes** local e AWS
-- **Login não funcional** com Amplify UI
-- **Falta de página inicial**
-- **Cálculo de frete** apenas por valor total
-- **Falta de confirmação** do pedido
-
-### 🎉 **Resultado Final:**
-
-**Sistema de checkout completo e funcional** com:
-- ✅ Cálculo inteligente de frete por região
-- ✅ Experiência consistente em todos os ambientes
-- ✅ Login simplificado e funcional
-- ✅ Confirmação detalhada do pedido
-- ✅ Interface moderna e responsiva
-
-**O checkout agora calcula o frete automaticamente baseado no endereço do cliente!** 🎯
+- [ ] Test the registration and login flow with email confirmation
+- [ ] Ensure AWS Amplify is properly configured for authentication
+- [ ] Handle any remaining edge cases in the confirmation process
+- [ ] Test the CEP address lookup functionality

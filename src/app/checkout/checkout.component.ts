@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } 
 import { Router } from '@angular/router';
 import { CarrinhoService } from '../services/carrinho.service';
 import { PedidoService } from '../services/pedido.service';
+import { CepService } from '../services/cep.service';
 import { CarrinhoItem } from '../models/carrinho-item.interface';
 import { Pedido } from '../models/pedido.interface';
 
@@ -36,7 +37,8 @@ export class CheckoutComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private carrinhoService: CarrinhoService,
-    public pedidoService: PedidoService
+    public pedidoService: PedidoService,
+    private cepService: CepService
   ) {
     this.checkoutForm = this.fb.group({
       // Dados do cliente
@@ -171,5 +173,27 @@ export class CheckoutComponent implements OnInit {
 
   voltarAoCarrinho(): void {
     this.router.navigate(['/carrinho']);
+  }
+
+  buscarEnderecoPorCep(): void {
+    const cep = this.checkoutForm.get('cep')?.value;
+    if (cep && cep.length === 8) {
+      this.cepService.buscarEnderecoPorCep(cep).subscribe({
+        next: (endereco) => {
+          if (endereco) {
+            this.checkoutForm.patchValue({
+              rua: endereco.logradouro,
+              bairro: endereco.bairro,
+              cidade: endereco.localidade,
+              estado: endereco.uf
+            });
+          }
+        },
+        error: (err) => {
+          console.error('Erro ao buscar endereço:', err);
+          alert('CEP não encontrado. Verifique o CEP e tente novamente.');
+        }
+      });
+    }
   }
 }

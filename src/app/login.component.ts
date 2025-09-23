@@ -18,15 +18,15 @@ import { AuthService } from './auth.service';
       <div class="login-form-container">
         <form (ngSubmit)="onLogin()" #loginForm="ngForm" class="login-form">
           <div class="form-group">
-            <label for="username">Usuário:</label>
+            <label for="username">Usuário (Email):</label>
             <input
-              type="text"
+              type="email"
               id="username"
               [(ngModel)]="username"
               name="username"
               required
               class="form-control"
-              placeholder="Digite seu usuário">
+              placeholder="Digite seu email como usuário">
           </div>
 
           <div class="form-group">
@@ -48,10 +48,7 @@ import { AuthService } from './auth.service';
         </form>
 
         <div class="login-info">
-          <h3>💡 Para testar o sistema:</h3>
-          <p><strong>Usuário:</strong> qualquer@email.com</p>
-          <p><strong>Senha:</strong> qualquer senha</p>
-          <p class="note">* O login é simulado para demonstração</p>
+          <p>Não tem uma conta? <a routerLink="/register">Cadastre-se</a></p>
         </div>
       </div>
     </div>
@@ -150,26 +147,20 @@ import { AuthService } from './auth.service';
     }
 
     .login-info {
-      background: #f8f9fa;
-      border-radius: 8px;
-      padding: 20px;
-      border-left: 4px solid #667eea;
-
-      h3 {
-        margin: 0 0 15px 0;
-        color: #333;
-        font-size: 1.1rem;
-      }
+      text-align: center;
 
       p {
-        margin: 5px 0;
+        margin: 0;
         color: #666;
       }
 
-      .note {
-        font-size: 0.9rem;
-        color: #888;
-        font-style: italic;
+      a {
+        color: #667eea;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
 
@@ -205,19 +196,12 @@ export class LoginComponent {
 
     try {
       console.log('Tentando fazer login...');
-
-      // Simular login para demonstração
-      // Em produção, isso seria uma chamada real para o backend
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      // Simular token
-      localStorage.setItem('token', 'demo-token-' + Date.now());
-
-      console.log('Login simulado realizado com sucesso, redirecionando...');
+      await this.authService.signIn(this.username, this.password);
+      console.log('Login realizado com sucesso, redirecionando...');
       this.router.navigate(['catalogo']);
     } catch (err) {
       console.error('Erro no login:', err);
-      alert('Erro no login. Tente novamente.');
+      alert('Erro no login. Verifique suas credenciais e tente novamente.');
     } finally {
       this.isLoading = false;
     }

@@ -57,12 +57,18 @@
         <div class="form-grid">
           <div class="form-group">
             <label for="cep">CEP *</label>
-            <input
-              type="text"
-              id="cep"
-              formControlName="cep"
-              [class.invalid]="isFieldInvalid('cep')"
-              placeholder="00000-000">
+            <div class="cep-input-group">
+              <input
+                type="text"
+                id="cep"
+                formControlName="cep"
+                [class.invalid]="isFieldInvalid('cep')"
+                placeholder="00000-000"
+                maxlength="8">
+              <button type="button" class="btn-buscar-cep" (click)="buscarEnderecoPorCep()">
+                Buscar Endereço
+              </button>
+            </div>
             <div class="error-message" *ngIf="isFieldInvalid('cep')">
               {{ getFieldError('cep') }}
             </div>

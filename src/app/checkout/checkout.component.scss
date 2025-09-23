@@ -95,6 +95,39 @@
   }
 }
 
+// Estilos para o grupo de input de CEP
+.cep-input-group {
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
+
+  input {
+    flex: 1;
+  }
+
+  .btn-buscar-cep {
+    padding: 12px 15px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    white-space: nowrap;
+
+    &:hover {
+      background: #0056b3;
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+
 .error-message {
   color: #dc3545;
   font-size: 0.9rem;
